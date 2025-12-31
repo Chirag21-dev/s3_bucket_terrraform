@@ -27,6 +27,6 @@ resource "aws_s3_bucket" "tf_test_baivaa_bucket" {
 
   tags = {
     Name        = "My_bucket"
-    Environment = "test"
+    Environment = "test1"
   }
 }

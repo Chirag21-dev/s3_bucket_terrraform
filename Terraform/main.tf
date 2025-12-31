@@ -21,3 +21,12 @@ resource "aws_s3_bucket" "tf_test_baivab_bucket" {
     Environment = "Dev"
   }
 }
+
+resource "aws_s3_bucket" "tf_test_baivaa_bucket" {
+  bucket = "new-tf-test-baiv-bucket-102"
+
+  tags = {
+    Name        = "My_bucket"
+    Environment = "Dev"
+  }
+}

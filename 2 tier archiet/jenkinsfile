@@ -58,9 +58,9 @@ pipeline {
         }
     }
 }
-post { 
-always { 
-// Archive both lint and security reports archiveArtifacts artifacts: '**/tflint-report.xml, **/tfsec-report.xml', allowEmptyArchive: true
+   post { 
+      always { 
+      // Archive both lint and security reports archiveArtifacts artifacts: '**/tflint-report.xml, **/tfsec-report.xml', allowEmptyArchive: true
        } 
-}
+       }
 }

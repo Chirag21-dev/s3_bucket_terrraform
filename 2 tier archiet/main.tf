@@ -34,7 +34,7 @@ module "vpc" {
 }
 
 module "security_groups" {
-  source = "./modules/security_groups"
+  source = "./modules/security_group"
 
   project_name = var.project_name
   environment  = var.environment

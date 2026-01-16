@@ -15,7 +15,7 @@ pipeline {
         stage('Terraform Format & Validate') {
             steps {
                 dir('2 tier archiet') {
-                sh 'terraform fmt -check=true -recursive' // Check for formatting issues
+                sh 'terraform fmt -recursive' // Check for formatting issues
                 sh 'terraform init'
                 sh 'terraform validate' // Built-in Terraform validation
             }

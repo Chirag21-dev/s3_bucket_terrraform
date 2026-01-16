@@ -23,7 +23,7 @@ resource "aws_instance" "web" {
   vpc_security_group_ids      = [var.web_security_group_id]
   associate_public_ip_address = true
 
-  user_data = templatefile("${path.module}/templates/user_data.sh", {
+  user_data = templatefile("${path.module}/templates/userdata.sh", {
     db_host     = var.db_host
     db_username = var.db_username
     db_password = var.db_password

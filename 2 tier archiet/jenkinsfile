@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+    terraform 'Teraaform'
+    }
 
     stages {
         stage('Checkout Code') {
@@ -11,32 +14,36 @@ pipeline {
 
         stage('Terraform Format & Validate') {
             steps {
+                dir('2 tier archiet') {
                 sh 'terraform fmt -check=true -recursive' // Check for formatting issues
                 sh 'terraform init'
                 sh 'terraform validate' // Built-in Terraform validation
             }
-        }
+        }}
 
         stage('TFLint Analysis') {
             steps {
+                dir('2 tier archiet'){
                 // Ensure tflint is installed and configured (e.g., via a .tflint.hcl file)
                 sh 'tflint --init'
                 sh 'tflint -f=checkstyle > tflint-report.xml' // Generates a report file
             }
-        }
+        }}
 
         stage('TFSec Security Scan') {
             steps {
+              dir('2 tier archiet'){
                 // Scans for security misconfigurations
                 sh 'tfsec --format junit --out tfsec-report.xml .' // Generates a JUnit report
             }
-        }
+        }}
 
         stage('Terraform Plan') {
             steps {
+              dir('2 tier archiet'){
                 sh 'terraform plan -out=tfplan.binary'
             }
-        }
+        }} 
 
         stage('Apply Infrastructure (Manual Approval)') {
             // Manual approval gate before applying to production
@@ -45,8 +52,9 @@ pipeline {
                 ok "Apply"
             }
             steps {
+              dir('2 tier archiet'){
                 sh 'terraform apply -auto-approve tfplan.binary'
             }
         }
     }
-}
+}}

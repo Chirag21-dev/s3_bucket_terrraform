@@ -34,14 +34,14 @@ pipeline {
             steps {
               dir('2 tier archiet'){
                 // Scans for security misconfigurations
-                sh 'tfsec --format junit --out tfsec-report.xml .' // Generates a JUnit report
+                sh 'tfsec --tfvars-file=terrafor.tfvars --format junit --out tfsec-report.xml .' // Generates a JUnit report
             }
         }}
 
         stage('Terraform Plan') {
             steps {
               dir('2 tier archiet'){
-                sh 'terraform plan -out=tfplan.binary'
+                sh 'terraform plan -var-file=terrafor.tfvars -out=tfplan.binary'
             }
         }} 
 
@@ -53,8 +53,10 @@ pipeline {
             }
             steps {
               dir('2 tier archiet'){
-                sh 'terraform apply -auto-approve tfplan.binary'
+                sh 'terraform apply -var-file=terrafor.tfvars -auto-approve tfplan.binary'
             }
         }
     }
-}}
+}
+post { always { // Archive both lint and security reports archiveArtifacts artifacts: '**/tflint-report.xml, **/tfsec-report.xml', allowEmptyArchive: true } }
+}

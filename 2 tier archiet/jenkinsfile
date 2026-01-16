@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // Replace 'your-repo-url' and 'your-credentials-id' as needed
-                checkout scm
+                git branch: 'main', url: 'https://github.com/Chirag21-dev/s3_bucket_terrraform.git'
             }
         }
 

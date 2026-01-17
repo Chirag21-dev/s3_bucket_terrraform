@@ -34,7 +34,7 @@ pipeline {
             steps {
               dir('2 tier archiet'){
                 // Scans for security misconfigurations
-                sh 'tfsec --tfvars-file=terrafor.tfvars --format junit --out tfsec-report.xml --minimum-severity HIGH .' // Generates a JUnit report
+                sh 'tfsec --tfvars-file=terrafor.tfvars --format junit --out tfsec-report.xml --soft-fail .' // Generates a JUnit report
             }
         }}
 

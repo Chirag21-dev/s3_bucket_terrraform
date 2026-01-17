@@ -41,7 +41,10 @@ pipeline {
         stage('Terraform Plan') {
             steps {
               dir('2 tier archiet'){
-                sh 'terraform plan -var-file=terrafor.tfvars -out=tfplan.binary'
+                withAWS(credentials: 'Aws_cred', region: 'us-east-1') {
+    sh 'terraform plan -var-file=terrafor.tfvars -out=tfplan.binary'
+                  }
+                
             }
         }} 
 
@@ -53,11 +56,13 @@ pipeline {
             }
             steps {
               dir('2 tier archiet'){
+               withAWS(credentials: 'Aws_cred', region: 'us-east-1') {
                 sh 'terraform apply -var-file=terrafor.tfvars -auto-approve tfplan.binary'
             }
         }
     }
    }
+}
    post { 
        always { 
           archiveArtifacts artifacts: '**/tflint-report.xml, **/tfsec-report.xml', allowEmptyArchive: true 

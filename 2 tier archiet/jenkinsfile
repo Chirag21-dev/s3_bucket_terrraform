@@ -30,7 +30,7 @@ pipeline {
             }
         }}
 
-        stage('TFSec Security Scan') {
+        stage('TFSec Security Scan ') {
             steps {
               dir('2 tier archiet'){
                 // Scans for security misconfigurations

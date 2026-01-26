@@ -22,11 +22,11 @@ resource "aws_s3_bucket" "tf_test_baivab_bucket" {
   }
 }
 
-resource "aws_s3_bucket" "tf_test_baivaa_bucket" {
-  bucket = "new-tf-test-baiv-bucket-102"
+resource "aws_s3_bucket_public_access_block" "example" {
+  bucket = aws_s3_bucket.example.id
 
-  tags = {
-    Name        = "My_bucket"
-    Environment = "test1"
-  }
+  block_public_acls       = false
+  block_public_policy     = fale
+  ignore_public_acls      = false
+  restrict_public_buckets = false
 }
